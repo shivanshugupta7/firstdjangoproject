@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{%  block content %}
+
+{#    <style>#}
+{#    .form-control.success i.fa-check-circle {#}
+{#	color: #2ecc71;#}
+{#	visibility: visible;#}
+{#}#}
+{##}
+{#.form-control.error i.fa-exclamation-circle {#}
+{#	color: #e74c3c;#}
+{#	visibility: visible;#}
+{#}#}
+{#    .form-control i {#}
+{#	visibility: hidden;#}
+{#	position: absolute;#}
+{#	top: 40px;#}
+{#	right: 10px;#}
+{#}#}
+{#    </style>#}
+{#    <style>#}
+{#        #loading#}
+{#        {#}
+{#            position: fixed;#}
+{#            width: 100%;#}
+{#            height: 100vh;#}
+{#            background: white#}
+{#            url('https://media.giphy.com/media/WiIuC6fAOoXD2/giphy.gif')#}
+{#            no-repeat center;#}
+{##}
+{##}
+{#        }#}
+{#    </style>#}
+{#    <div id="loading"></div>#}
+<div class="container">
+
+{#        <div class="form-group">   <!-- for alert box  -->#}
+{#        {% if messages %}#}
+{#        <ul class="messages">#}
+{#        {% for message in messages %}#}
+{#        <li>#}
+{#            <div class="alert alert-success">{{ message }}#}
+{#            </div>#}
+{#        </li>#}
+{#        {% endfor %}#}
+{#        </ul>#}
+{#        {% endif %}#}
+{#        </div>#}
+
+            <form method="POST" action="/add" id="form" enctype="multipart/form-data" class="form">    <!-- adding the details in the form  -->
+                {% csrf_token %}
+{#                 <div class="form-group">#}
+{#            <label for="eid">Id</label>#}
+{#            <input type="number" name="eid" class="form-control" id="eid" aria-describedby="emailHelp" placeholder="Id" >#}
+{#          </div>#}
+{#          <div class="form-group">#}
+{#            <label for="ename">Name</label>#}
+{#            <input type="text" class="form-control" id="ename" placeholder="Name" >#}
+{#          </div>#}
+{#          <div class="form-group">#}
+{#            <label for="eemail">EMAIL</label>#}
+{#            <input type="email" class="form-control" id="eemail" placeholder="Email" >#}
+{#          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>#}
+{##}
+{#          </div>#}
+{#          <div class="form-group">#}
+{#            <label for="econtact">Contact Details</label>#}
+{#            <input type="number" class="form-control" id="econtact" placeholder="Name" >#}
+{#          </div>#}
+{#            <div class="form-group">#}
+{#            <label for="image">Profile Image</label>#}
+{#            <input type="file" class="form-control" id="profile_image"  required>#}
+{#          </div>#}
+
+                <div class="container">
+                    <div id="div_id_eid" class="form-group">
+                <label for="eid" class=" requiredField"> ID  </label>
+                <div class=""><input type="number" name="eid" id="eid" min="0" class="numberinput form-control" >
+                    </div>
+
+                 </div>
+
+
+                <div id="div_id_ename" class="form-group">
+            <label for="id_ename" class=" requiredField">NAME</label>
+                    <div class="">
+                    <input type="text" name="ename" id="ename" maxlength="50" class="textinput textInput form-control"  >
+                    </div></div>
+
+
+
+{#                    {{ form.ename|as_crispy_field }}#}
+{#                    {{ form.eemail|as_crispy_field }}#}
+
+                    <div id="div_id_eemail" class="form-group">
+                <label for="id_eemail" class=" requiredField">Email Address</label>
+                        <div class="">
+                            <input type="email" name="eemail" maxlength="254" class="emailinput form-control"  id="eemail">
+                        </div></div>
+
+                    <small id="emailHelp"  style="color:red;">We'll never share your email with anyone else.</small>
+                    <div>&nbsp</div>
+
+
+
+{#                    {{ form.econtact|as_crispy_field }}#}
+                    <div id="div_id_econtact" class="form-group">
+            <label for="econtact" class=" requiredField">Contact Details</label>
+                        <div class="">
+                            <input type="number"  name="econtact" min="0" class="numberinput form-control" id="econtact">
+                        </div></div>
+
+
+{##}
+                    {{ form.profile_image|as_crispy_field }}
+                    <small id="profileImageHelp"  style="color:red;">Image should be less than 100kb</small>
+{##}
+{#                </div>#}
+                <button type="submit" id="submit" class="btn btn-primary btn-block" >ADD</button>
+
+            </form>
+            </div>
+
+
+    {#        {% endif %}#}
+    </div>          <!-- end alert box div -->
+
+{#<script>#}
+{#   document.getElementById("submit").addEventListener("click", display);#}
+{#    function display(){#}
+        {#alert("hello");#}
+        {#swal("Hello world!");#}
+{#        alert("form.eid")#}
+    {#swal("Good job!", "You clicked the button!", "success");#}
+{##}
+{#    }#}
+{##}
+{##}
+{#    </script>#}
+
+    <script>
+    const form = document.getElementById('form');
+    const ename = document.getElementById('ename');
+    const eemail = document.getElementById('eemail');
+    const econtact = document.getElementById('econtact');
+    const eid = document.getElementById('eid');
+form.addEventListener('submit', e => {
+	{#e.preventDefault();#}
+	checkInputs();
+        Default();
+});
+function checkInputs() {
+    // trim to remove the whitespaces
+
+    const enameValue = ename.value.trim();
+    const eemailValue = eemail.value.trim();
+    const econtactValue = econtact.value.trim();
+    const eidValue=eid.value.trim();
+    var digits = econtactValue.toString().length;
+   if(enameValue === '' || eemailValue==='' || econtactValue==='' || eidValue===''  ) {
+
+            alert("Please fill the details");
+         {#location.reload();#}
+	}
+   else if(digits<10 || digits>10){
+
+       swal({
+           icon:"error",
+           text:"Phone number must be of 10 digits in India,You can change it in edit option",
+           timer:10000
+       })
+
+   }
+   else
+   {
+      swal({
+          title: "Submitting Form",
+          text: "Your form is submitting, Please wait a while",
+          icon: "success",
+            buttons: false,
+            timer:10000
+        });
+   }
+
+
+
+
+
+}
+
+    </script>
+
+{% endblock %}
+

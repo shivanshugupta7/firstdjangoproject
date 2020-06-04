@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{%  block content %}
+{#        internal css used to match with navbar  #}
+{#    <style>#}
+{#    table {#}
+{#      width: 100%;#}
+{#      border-collapse: collapse;#}
+{#    }#}
+{#    /* Zebra striping */#}
+{#    tr:nth-of-type(odd) {#}
+      {#background: #eee;#}
+{#    }#}
+{#    th {#}
+      {#background: #333;#}
+      {#color: white;#}
+      {#font-weight: bold;#}
+{#    }#}
+{#    td, th {#}
+{#      padding: 6px;#}
+      {#border: 1px solid #ccc;#}
+      {#text-align: left;#}
+{#    }#}
+{#    </style>   <!--ending css  -->#}
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">#}
+{#  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>#}
+{#  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>#}
+    <div class="container">
+<table class="table table-hover " >
+  <thead >
+    <tr>
+        <th>IMAGE</th>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>EMAIL</th>
+        <th>CONTACT</th>
+        <th>EDIT</th>
+        <th>DELETE</th>
+    </tr>
+  </thead>
+    {% for i in employee %} <!--  looping through all the data -->
+    <tr>
+    <td>
+     <div>
+{#         <h1>first ->"{{ instance.image }}"</h1>#}
+         {#         <h1>1-> "{{ i.profile_image.url }}"</h1>#}
+         {#         <h1>2 -> "{{ i.instance.image }}"</h1>#}
+{#         <h5>{{ i.profile_image.url }}</h5>#}
+{#         <img src="{% static "{{ i.profile_image.url }}" %}" alt="My image">#}
+{#         <h1>{{ MEDIA_URL }}</h1>#}
+    <img src= "{{ i.profile_image.url }}" class="img-responsive" width="150" height="100" >
+    </div>
+    </td>
+        <td>{{ i.eid }}</td>
+        <td>{{ i.ename }}</td>
+        <td>{{ i.eemail }}</td>
+        <td>{{ i.econtact}}</td>
+        <td><a href="edit/{{ i.id }}">Edit</a>
+        <td><a href="delete/{{ i.id }}">Delete</a>
+    </tr>
+    {% endfor %}
+
+</table>
+    </div>
+{% endblock %}
+

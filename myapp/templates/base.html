@@ -1,0 +1,74 @@
+{#{% load cms_tags staticfiles %}#}
+<!doctype html>
+<html lang="en">
+<head>
+    <style>
+        #loading
+        {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: white
+            url('https://media.giphy.com/media/f9dfemrLEPRCdJcUED/giphy.gif')
+            no-repeat center;
+            z-index:999999;
+
+        }
+
+    </style>
+  <meta charset="utf-8">
+{#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+{#    <link href="{% static 'assets/css/loaders/loader-pulse.css' %}" rel="stylesheet" type="text/css" media="all" />#}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">#}
+{#  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>#}
+{#  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>#}
+</head>
+<body onload="myFunction()">
+<div id="loading"></div>
+
+<div>
+{#                    NAVBAR  OF ALL THE PAGES                             #}
+  <div class="container" style= "width:100%;margin: auto;">
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home</a>
+        </li>
+      <li class="nav-item active"><a class="nav-link" href="/show">Show All</a></li>
+      <li class="nav-item active"><a class="nav-link" href="/load_form">Add New</a></li>
+    </ul>
+    <form method="POST" action="search" class="form-inline my-2 my-lg-0">
+        {% csrf_token %}
+      <input name="name" class="form-control mr-sm-2" type="search" placeholder="Search Names" aria-label="Search">
+      <button class="btn btn-danger" my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+{% block content %}
+    {% endblock %}
+
+</div>
+<script>
+    var preloader=document.getElementById('loading');
+        function myFunction(){
+            preloader.style.display='none';
+        }
+
+</script>
+
+</body>
+</html>
